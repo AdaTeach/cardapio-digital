@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import express, { type Request, type Response } from 'express';
+import { runMigrations } from './infra/database/migrate';
 
 const app = express();
 const PORT = process.env.PORT || 3333;
@@ -12,4 +13,6 @@ app.get('/', (req: Request, resp: Response) => {
     });
 })
 
-app.listen(PORT, () => console.log(`funcionando no endereco http://localhost:${PORT}`))
+runMigrations().then(() => {
+    app.listen(PORT, () => console.log(`funcionando no endereco http://localhost:${PORT}`));
+});
