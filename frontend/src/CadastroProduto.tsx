@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, FormEvent } from 'react'
 
 interface FormData {
     nome: string
@@ -34,9 +34,34 @@ export function CadastroProduto() {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
-        if (validate()) {
-            console.log({ ...form, valor: parseFloat(form.valor) })
+    
+        if (!validate()) {
+            console.log('Errro ao validar')
+            return;
         }
+      
+      const dataForm = { ...form, valor: parseFloat(form.valor) }
+      
+      try {
+            const r = await fetch('/produto', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataForm),
+            })
+
+            if (!r.ok) {
+                setErro('Erro ao criar produto.')
+                return
+            }
+
+            setSucesso('Produto criado com sucesso!')
+            setForm({ nome: '', descricao: '', detalhes: '', valor: '' })
+        } catch {
+            setErro('Erro ao conectar. Tente novamente.')
+        }
+      
+      
+      
     }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -232,3 +257,4 @@ const styles: Record<string, React.CSSProperties> = {
         cursor: 'pointer',
     },
 }
+  
