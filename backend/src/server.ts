@@ -14,6 +14,5 @@ app.get('/', (_req: Request, resp: Response) => {
     });
 })
 
-runMigrations().then(() => {
-    app.listen(PORT, () => console.log(`funcionando no endereco http://localhost:${PORT}`));
-});
+await runMigrations();
+app.listen(PORT, () => console.log(`funcionando no endereco http://localhost:${PORT}`));
