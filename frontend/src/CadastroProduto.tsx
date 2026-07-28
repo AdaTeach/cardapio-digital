@@ -137,10 +137,10 @@ export function CadastroProduto() {
                         </div>
 
                         <div style={styles.field}>
-                            <label style={styles.label}>Detalhes</label>
+                            <label style={styles.label}>Detalhe</label>
                             <textarea
                                 style={styles.textarea}
-                                name="detalhes"
+                                name="detalhe"
                                 value={form.detalhe}
                                 onChange={handleChange}
                                 maxLength={255}
