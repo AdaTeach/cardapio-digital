@@ -3,7 +3,7 @@ import { useState, FormEvent } from 'react'
 interface FormData {
     nome: string
     descricao: string
-    detalhe: string
+    detalhes: string
     valor: string
 }
 
@@ -13,7 +13,7 @@ interface FormErrors {
 }
 
 export function CadastroProduto() {
-    const [form, setForm] = useState<FormData>({ nome: '', descricao: '', detalhe: '', valor: '' })
+    const [form, setForm] = useState<FormData>({ nome: '', descricao: '', detalhes: '', valor: '' })
 
     function formatValor(digits: string): string {
         if (!digits) return ''
@@ -32,7 +32,7 @@ export function CadastroProduto() {
         return Object.keys(next).length === 0
     }
 
-    async function handleSubmit(e: React.FormEvent) {
+    function handleSubmit(e: React.FormEvent) {
         e.preventDefault()
     
         if (!validate()) {
@@ -43,29 +43,26 @@ export function CadastroProduto() {
       const dataForm = { ...form, valor: parseFloat(form.valor) }
       
       try {
-
-            const data = {data: dataForm}; 
-            const r = await fetch('/api/produto', {
+            const r = await fetch('/produto', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data),
+                body: JSON.stringify(dataForm),
             })
 
             if (!r.ok) {
-                //setErro('Erro ao criar produto.')
-                console.log('Erro ao criar produto')
+                setErro('Erro ao criar produto.')
                 return
             }
-            console.log('Produto criado com sucesso')
-            //setSucesso('Produto criado com sucesso!')
-            setForm({ nome: '', descricao: '', detalhe: '', valor: '' })
+
+            setSucesso('Produto criado com sucesso!')
+            setForm({ nome: '', descricao: '', detalhes: '', valor: '' })
         } catch {
-            //setErro('Erro ao conectar. Tente novamente.')
-            console.log('Erro ao conectar. Tente novamente')
+            setErro('Erro ao conectar. Tente novamente.')
         }
       
-        }
-
+      
+      
+    }
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
         const { name, value } = e.target
@@ -141,13 +138,13 @@ export function CadastroProduto() {
                             <textarea
                                 style={styles.textarea}
                                 name="detalhes"
-                                value={form.detalhe}
+                                value={form.detalhes}
                                 onChange={handleChange}
                                 maxLength={255}
                                 placeholder="Informações adicionais"
                                 rows={3}
                             />
-                            <span style={styles.counter}>{form.detalhe.length}/255</span>
+                            <span style={styles.counter}>{form.detalhes.length}/255</span>
                         </div>
 
                         <button type="submit" style={styles.button}>
