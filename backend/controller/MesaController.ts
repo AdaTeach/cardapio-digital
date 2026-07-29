@@ -1,10 +1,27 @@
 import MesaDao from "../dao/MesaDao";
+import Mesa from "../entities/Mesa";
 
 class MesaController {
 
-    async delete(id: number){
-        const returnData = await MesaDao.delete(id)
-        return returnData;
+    async create(mesa: Mesa) {
+        return MesaDao.create(mesa);
+    }
+
+    async updateStatus(numero: number, status: string) {
+        Mesa.validateStatusValue(status);
+        return MesaDao.updateStatus(numero, status);
+    }
+
+    async list() {
+        return MesaDao.list();
+    }
+
+    async update(id: number, mesa: Mesa) {
+        return MesaDao.update(id, mesa);
+    }
+
+    async delete(id: number) {
+        return MesaDao.delete(id);
     }
 }
 
