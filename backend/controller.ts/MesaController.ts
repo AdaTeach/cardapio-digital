@@ -4,8 +4,12 @@ import MesaDao from '../dao/MesaDao';
 class MesaController {
 
     async create(mesa: Mesa) {
-        const returnData = await MesaDao.create(mesa);
-        return returnData;
+        return MesaDao.create(mesa);
+    }
+
+    async updateStatus(numero: number, status: string) {
+        Mesa.validateStatusValue(status);
+        return MesaDao.updateStatus(numero, status);
     }
 
 }

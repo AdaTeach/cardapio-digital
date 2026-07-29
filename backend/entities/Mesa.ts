@@ -21,6 +21,10 @@ class Mesa {
     }
 
     validateStatus(status: string) {
+        Mesa.validateStatusValue(status);
+    }
+
+    static validateStatusValue(status: string) {
         const allowed = ['disponivel', 'ocupada', 'reservada'];
         if (!allowed.includes(status)) throw new Error(`Status inválido. Use: ${allowed.join(', ')}`);
     }
