@@ -1,5 +1,5 @@
 import Mesa from "../entities/Mesa";
-import MesaDao from "../dao/MesaDao";
+import MesaDao from '../dao/MesaDao';
 
 class MesaController {
 
@@ -7,6 +7,11 @@ class MesaController {
         return MesaDao.create(mesa);
     }
 
+    async updateStatus(numero: number, status: string) {
+        Mesa.validateStatusValue(status);
+        return MesaDao.updateStatus(numero, status);
+    }
+  
     async list() {
         return MesaDao.list();
     }
