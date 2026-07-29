@@ -1,5 +1,7 @@
 import { Request, Response, Router } from "express";
 import ProdutoEntity from "../entities/Produto";
+import MesaEntity from "../entities/Mesa";
+import MesaController from "../controller.ts/MesaController";
 import ProdutoController from "../controller/ProdutoController";
 
 const router = Router();
@@ -24,6 +26,19 @@ router.post("/produto", async (req: Request, res: Response) => {
     } catch(error) {
         console.log(error);
         res.status(500).json({ error: "Internal server error " });
+    }
+});
+
+router.post("/mesa", async (req: Request, res: Response) => {
+    try {
+        const { data } = req.body;
+        const { numero, capacidade, status } = data;
+        const mesa = new MesaEntity(numero, capacidade, status);
+        const returnMesa = await MesaController.create(mesa);
+        res.status(201).json(returnMesa);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 
