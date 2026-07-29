@@ -4,7 +4,18 @@ import MesaEntity from "../entities/Mesa";
 import ProdutoController from "../controller.ts/ProdutoController";
 import MesaController from "../controller.ts/MesaController";
 
+
 const router = Router();
+
+router.get("/produtos", async (req: Request, res: Response) => {
+    try{
+        const produtos = await ProdutoController.list();
+        res.status(201).json(produtos);
+    } catch(error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error " });
+    }
+});
 
 router.post("/produto", async (req: Request, res: Response) => {
     try{
