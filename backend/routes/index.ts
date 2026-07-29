@@ -1,44 +1,32 @@
 import { Request, Response, Router } from "express";
 import ProdutoEntity from "../entities/Produto";
 import MesaEntity from "../entities/Mesa";
-import MesaController from "../controller.ts/MesaController";
+import MesaController from "../controller/MesaController";
 import ProdutoController from "../controller/ProdutoController";
+
 
 const router = Router();
 
 router.get("/produtos", async (req: Request, res: Response) => {
-    try{
+    try {
         const produtos = await ProdutoController.list();
         res.status(201).json(produtos);
-    } catch(error) {
+    } catch (error) {
         console.log(error);
         res.status(500).json({ error: "Internal server error " });
     }
 });
 
 router.post("/produto", async (req: Request, res: Response) => {
-    try{
+    try {
         const { data } = req.body;
         const { nome, valor, descricao, detalhe } = data;
         const produto = new ProdutoEntity(nome, valor, descricao, detalhe);
         const returnProduto = await ProdutoController.create(produto);
         res.status(201).json(returnProduto);
-    } catch(error) {
-        console.log(error);
-        res.status(500).json({ error: "Internal server error " });
-    }
-});
-
-router.post("/mesa", async (req: Request, res: Response) => {
-    try {
-        const { data } = req.body;
-        const { numero, capacidade, status } = data;
-        const mesa = new MesaEntity(numero, capacidade, status);
-        const returnMesa = await MesaController.create(mesa);
-        res.status(201).json(returnMesa);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({ error: "Internal server error " });
     }
 });
 
