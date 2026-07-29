@@ -1,6 +1,6 @@
-import Mesa from "../entities/Mesa";
 import { db } from "../src/infra/database/connection";
 import Connection from "./Connection";
+import Mesa from "../entities/Mesa";
 
 class MesaDAO extends Connection {
 
