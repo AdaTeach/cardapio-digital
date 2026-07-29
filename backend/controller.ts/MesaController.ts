@@ -11,6 +11,18 @@ class MesaController {
         Mesa.validateStatusValue(status);
         return MesaDao.updateStatus(numero, status);
     }
+  
+    async list() {
+        return MesaDao.list();
+    }
+
+    async update(id: number, mesa: Mesa) {
+        return MesaDao.update(id, mesa);
+    }
+
+    async delete(id: number) {
+        return MesaDao.delete(id);
+    }
 
 }
 
