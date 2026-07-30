@@ -22,18 +22,13 @@ class Mesa {
         if (!Number.isInteger(capacidade) || capacidade <= 0) throw new Error("Capacidade deve ser um inteiro positivo");
     }
 
-    validateStatus(status: string) {
+    validateStatus(status: MesaStatus) {
         Mesa.validateStatusValue(status);
     }
 
     static validateStatusValue(status: string) {
-        const allowed = ['disponivel', 'ocupada', 'reservada'];
-        if (!allowed.includes(status)) throw new Error(`Status inválido. Use: ${allowed.join(', ')}`);
-    }
-  
-    validateStatus(status: MesaStatus) {
         const valid: MesaStatus[] = ["disponivel", "ocupada", "reservada"];
-        if (!valid.includes(status)) throw new Error("Status inválido. Use: disponivel, ocupada ou reservada");
+        if (!valid.includes(status as MesaStatus)) throw new Error(`Status inválido. Use: ${valid.join(', ')}`);
     }
 }
 
