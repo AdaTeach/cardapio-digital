@@ -6,7 +6,7 @@ import MesaEntity from "../entities/Mesa";
 
 const router = Router();
 
-router.get("/produtos", async (_req: Request, res: Response) => {
+router.get("/produtos", async (req: Request, res: Response) => {
     try {
         const produtos = await ProdutoController.list();
         res.status(200).json(produtos);
