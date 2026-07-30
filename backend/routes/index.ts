@@ -1,21 +1,18 @@
 import { Request, Response, Router } from "express";
 import ProdutoEntity from "../entities/Produto";
-import ProdutoController from "../controller.ts/ProdutoController";
-import MesaController from "../controller.ts/MesaController";
-import MesaEntity from "../entities/Mesa";
-import MesaController from "../controller/MesaController";
 import ProdutoController from "../controller/ProdutoController";
-
+import MesaController from "../controller/MesaController";
+import MesaEntity from "../entities/Mesa";
 
 const router = Router();
 
-router.get("/produtos", async (req: Request, res: Response) => {
+router.get("/produtos", async (_req: Request, res: Response) => {
     try {
         const produtos = await ProdutoController.list();
-        res.status(201).json(produtos);
+        res.status(200).json(produtos);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: "Internal server error " });
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 
@@ -28,7 +25,30 @@ router.post("/produto", async (req: Request, res: Response) => {
         res.status(201).json(returnProduto);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: "Internal server error " });
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+router.get("/mesas", async (_req: Request, res: Response) => {
+    try {
+        const mesas = await MesaController.list();
+        res.status(200).json(mesas);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+router.put("/mesa/:id", async (req: Request, res: Response) => {
+    try {
+        const id = Number(req.params.id);
+        const { numero, capacidade, status } = req.body;
+        const mesa = new MesaEntity(numero, capacidade, status);
+        const result = await MesaController.update(id, mesa);
+        res.status(200).json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error" });
     }
 });
 
@@ -51,9 +71,8 @@ router.delete("/mesa/:id", async (req: Request, res: Response) => {
         res.status(200).json(returnMesa);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ error: "Internal server error " });
+        res.status(500).json({ error: "Internal server error" });
     }
 });
-
 
 export default router;
