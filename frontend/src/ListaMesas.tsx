@@ -31,14 +31,6 @@ const styles: Record<string, React.CSSProperties> = {
         backgroundColor: "#f5f5f5",
         fontFamily: "sans-serif",
     },
-    header: {
-        backgroundColor: "#1e40af",
-        color: "#fff",
-        padding: "16px 32px",
-        fontSize: "22px",
-        fontWeight: "bold",
-        letterSpacing: "1px",
-    },
     main: {
         flex: 1,
         padding: "32px",
@@ -47,11 +39,27 @@ const styles: Record<string, React.CSSProperties> = {
         margin: "0 auto",
         boxSizing: "border-box",
     },
+    topBar: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: "24px",
+    },
     titulo: {
         fontSize: "24px",
         fontWeight: "bold",
-        marginBottom: "24px",
         color: "#111",
+        margin: 0,
+    },
+    btnCadastrar: {
+        padding: "10px 20px",
+        border: "1px solid #4f46e5",
+        borderRadius: "20px",
+        backgroundColor: "#eef2ff",
+        color: "#4f46e5",
+        fontSize: "14px",
+        fontWeight: "bold",
+        cursor: "pointer",
     },
     grid: {
         display: "grid",
@@ -91,13 +99,11 @@ const styles: Record<string, React.CSSProperties> = {
         color: "#fff",
         width: "fit-content",
     },
-    select: {
-        padding: "6px 8px",
-        borderRadius: "6px",
-        border: "1px solid #ccc",
-        fontSize: "13px",
-        cursor: "pointer",
-        width: "100%",
+    acoes: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "8px",
+        marginTop: "8px",
     },
     btnAlterar: {
         padding: "8px",
@@ -120,12 +126,6 @@ const styles: Record<string, React.CSSProperties> = {
         fontSize: "13px",
         fontWeight: "bold",
         width: "100%",
-    },
-    acoes: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "8px",
-        marginTop: "8px",
     },
     erro: {
         color: "#c62828",
@@ -162,13 +162,28 @@ export function ListarMesas() {
         setMesas(prev => prev.filter(m => m.id !== id));
     }
 
-    
+    // async function alterarStatus(numero: number, novoStatus: string) {
+    //     await fetch(`/api/mesa/${numero}/status`, {
+    //         method: 'PATCH',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ status: novoStatus })
+    //     });
+    //     setMesas(prev =>
+    //         prev.map(m => m.numero === numero ? { ...m, status: novoStatus as MesaStatus } : m)
+    //     );
+    // }
+
     return (
         <div style={styles.page}>
             <Header />
 
             <main style={styles.main}>
-                <h1 style={styles.titulo}>Mesas</h1>
+                <div style={styles.topBar}>
+                    <h1 style={styles.titulo}>Mesas</h1>
+                    <button style={styles.btnCadastrar} onClick={() => navigate('/mesa/cadastro')}>
+                        + Cadastrar Mesa
+                    </button>
+                </div>
 
                 {erro && <p style={styles.erro}>Erro ao carregar mesas.</p>}
 
