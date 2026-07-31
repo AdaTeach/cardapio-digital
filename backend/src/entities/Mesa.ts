@@ -1,9 +1,11 @@
+type MesaStatus = "disponivel" | "ocupada" | "reservada";
+
 class Mesa {
     numero: number;
     capacidade: number;
-    status: string;
+    status: MesaStatus;
 
-    constructor(numero: number, capacidade: number, status: string = 'disponivel') {
+    constructor(numero: number, capacidade: number, status: MesaStatus) {
         this.validateNumero(numero);
         this.validateCapacidade(capacidade);
         this.validateStatus(status);
@@ -21,6 +23,10 @@ class Mesa {
     }
 
     validateStatus(status: string) {
+        Mesa.validateStatusValue(status);
+    }
+
+    static validateStatusValue(status: string) {
         const allowed = ['disponivel', 'ocupada', 'reservada'];
         if (!allowed.includes(status)) throw new Error(`Status inválido. Use: ${allowed.join(', ')}`);
     }

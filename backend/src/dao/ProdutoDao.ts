@@ -1,14 +1,13 @@
 import Produto from "../entities/Produto";
-import { db } from "../src/infra/database/connection";
-import Connection from "./Connection";
+import { db } from "../infra/database/connection";
 
-class ProdutoDAO extends Connection {
+class ProdutoDAO {
 
     async list() {
         return db.all("SELECT * FROM produtos ORDER BY nome");
     }
 
-    async create({nome, valor, descricao, detalhe}: Produto) {
+    async create({ nome, valor, descricao, detalhe }: Produto) {
         return db.run(
             "INSERT INTO produtos (nome, valor, descricao, detalhe) VALUES (?, ?, ?, ?)",
             [nome, valor, descricao, detalhe]

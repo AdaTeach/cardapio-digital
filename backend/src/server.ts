@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import express, { type Request, type Response } from 'express';
 import { runMigrations } from './infra/database/migrate';
-import router from '../routes';
+import router from './routes';
 
 dotenv.config();
 
