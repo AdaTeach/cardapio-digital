@@ -28,6 +28,16 @@ router.post("/produto", async (req: Request, res: Response) => {
     }
 });
 
+router.get("/mesas", async (req: Request, res: Response) => {
+    try {
+        const mesas = await MesaController.list();
+        res.status(201).json(mesas);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error " });
+    }
+});
+
 router.patch("/mesa/:numero/status", async (req: Request, res: Response) => {
     try {
         const numero = parseInt(String(req.params.numero));
