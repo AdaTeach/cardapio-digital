@@ -1,9 +1,7 @@
 import Mesa from "../entities/Mesa";
-import { db } from "../src/infra/database/connection";
-import Connection from "./Connection";
-import Mesa from "../entities/Mesa";
+import { db } from "../infra/database/connection";
 
-class MesaDAO extends Connection {
+class MesaDAO {
 
     async create({ numero, capacidade, status }: Mesa) {
         return db.run(
@@ -16,9 +14,9 @@ class MesaDAO extends Connection {
         return db.run(
             "UPDATE mesas SET status = ? WHERE numero = ?",
             [status, numero]
-          );
+        );
     }
-          
+
     async list() {
         return db.all("SELECT * FROM mesas");
     }

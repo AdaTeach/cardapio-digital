@@ -1,11 +1,7 @@
 import { Request, Response, Router } from "express";
 import ProdutoEntity from "../entities/Produto";
-import ProdutoController from "../controller.ts/ProdutoController";
-import MesaController from "../controller.ts/MesaController";
-import MesaEntity from "../entities/Mesa";
 import MesaController from "../controller/MesaController";
 import ProdutoController from "../controller/ProdutoController";
-
 
 const router = Router();
 
